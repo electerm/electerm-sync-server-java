@@ -19,22 +19,17 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
-          distribution: 'adopt'
-          java-version: '17'
+          distribution: temurin
+          java-version: 17
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
-      - name: Run Gradle wrapper
-        uses: gradle/gradle-wrapper-action@v1
-        with:
-          gradle-executable: 'gradlew'
-          arguments: 'build'
+      - name: Execute Gradle build
+        run: ./gradlew build
 
-      - run: gradle test
+      - run: ./gradlew test

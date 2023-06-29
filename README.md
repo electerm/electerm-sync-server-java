@@ -14,10 +14,10 @@ cd electerm-sync-server-java
 cp sample.env .env
 
 ## run
-gradle run
+gradlew run
 
 ## build
-gradle build
+gradlew build
 
 # would show something like
 # server running at http://127.0.0.1:7837
@@ -31,7 +31,7 @@ gradle build
 ## Test
 
 ```bash
-npm run test
+gradlew test
 ```
 
 ## Write your own data store
