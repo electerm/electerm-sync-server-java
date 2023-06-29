@@ -28,3 +28,4 @@ build
 /.env
 .vscode
 /.json
+!gradle/wrapper/gradle-wrapper.jar
