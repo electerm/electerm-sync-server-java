@@ -1,5 +1,5 @@
 
-package ElectermSync;
+package main.java.ElectermSync;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.IOException;
@@ -39,9 +39,8 @@ public class FileStore {
         if (file.isFile()) {
             String fileContent;
             try {
-                fileContent = Files.readString(filePath);
-                Map<String, Object> fileData = objectMapper.readValue(fileContent, HashMap.class);
-                return new ReadResult(fileData, 200);
+                fileContent = Files.readString(filePath).toString();
+                return new ReadResult(fileContent, 200);
             } catch (IOException e) {
                 return new ReadResult("File read error", 500);
             }

@@ -1,4 +1,4 @@
-package ElectermSync;
+package main.java.ElectermSync;
 
 public class WriteResult {
     public final String message;

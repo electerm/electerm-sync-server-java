@@ -25,3 +25,6 @@ replay_pid*
 /temp/
 .gradle
 build
+/.env
+.vscode
+/.json

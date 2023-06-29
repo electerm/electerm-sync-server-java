@@ -1,4 +1,4 @@
-package ElectermSync;
+package main.java.ElectermSync;
 import static spark.Spark.*;
 import io.jsonwebtoken.*;
 import com.google.gson.Gson;
@@ -53,7 +53,7 @@ public class App {
             String jwtId = request.attribute("jwtId");
             ReadResult r = FileStore.read(jwtId, dotenv);
             response.status(r.statusCode);
-            return gson.toJson(r.fileData);
+            return r.fileData;
         });
 
         put("/api/sync", (request, response) -> {

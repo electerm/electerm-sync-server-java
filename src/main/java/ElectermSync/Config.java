@@ -1,4 +1,4 @@
-package ElectermSync;
+package main.java.ElectermSync;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
