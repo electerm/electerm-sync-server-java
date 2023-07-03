@@ -36,7 +36,7 @@ gradlew test
 
 ## Write your own data store
 
-Just take [src/ElectermSync/FileStore.java](src/ElectermSync/FileStore.java) as an example, write your own read/write method
+Just take [src/main/java/ElectermSync/FileStore.java](src/main/java/ElectermSync/FileStore.java) as an example, write your own read/write method
 
 ## License
 
