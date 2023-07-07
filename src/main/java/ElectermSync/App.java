@@ -55,7 +55,9 @@ public class App {
             response.status(r.statusCode);
             return r.fileData;
         });
-
+        post("/api/sync", (request, response) -> {
+            return "test ok";
+        });
         put("/api/sync", (request, response) -> {
             String requestBody = request.body();
             String jwtId = request.attribute("jwtId");
