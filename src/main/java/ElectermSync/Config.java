@@ -9,7 +9,15 @@ public class Config {
         dotenv = Dotenv.load();
     }
 
+    public Config(String path) {
+        dotenv = Dotenv.configure().directory(path).load();
+    }
+
     public String getValue(String name) {
+        String sysProp = System.getProperty(name);
+        if (sysProp != null) {
+            return sysProp;
+        }
         return dotenv.get(name);
     }
 }

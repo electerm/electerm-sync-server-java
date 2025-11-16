@@ -2,6 +2,7 @@ package main.java.ElectermSync;
 import static spark.Spark.*;
 import io.jsonwebtoken.*;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.util.Map;
 import java.io.File;
 import java.util.Arrays;
@@ -11,6 +12,12 @@ import java.util.Base64;
 public class App {
 
     public static void main(String[] args) {
+        // Configure logging to reduce Jetty and Spark noise
+        System.setProperty("org.eclipse.jetty.util.log.class", "org.eclipse.jetty.util.log.StdErrLog");
+        System.setProperty("org.eclipse.jetty.LEVEL", "WARN");
+        System.setProperty("org.eclipse.jetty.util.log.StdErrLog.LEVEL", "WARN");
+        System.setProperty("spark.embeddedserver.jetty.LEVEL", "WARN");
+
         Gson gson = new Gson();
 
 
@@ -51,7 +58,7 @@ public class App {
 
         get("/api/sync", (request, response) -> {
             String jwtId = request.attribute("jwtId");
-            ReadResult r = FileStore.read(jwtId, dotenv);
+            ReadResult r = DataStore.read(jwtId, dotenv);
             response.status(r.statusCode);
             return r.fileData;
         });
@@ -62,7 +69,7 @@ public class App {
             String requestBody = request.body();
             String jwtId = request.attribute("jwtId");
             response.type("application/json");
-            WriteResult r = FileStore.write(requestBody, jwtId, dotenv);
+            WriteResult r = DataStore.write(requestBody, jwtId, dotenv);
             response.status(r.statusCode);
             return r.message;
         });
@@ -71,5 +78,22 @@ public class App {
             response.type("application/json");
             response.header("Content-Encoding", "gzip");
         });
+
+        // Print user-friendly startup information
+        String host = dotenv.getValue("HOST");
+        String port = dotenv.getValue("PORT");
+        String serverUrl = "http://" + host + ":" + port;
+        System.out.println("===========================================");
+        System.out.println("Electerm Sync Server started successfully!");
+        System.out.println("Server running at " + serverUrl);
+        System.out.println("API endpoint: " + serverUrl + "/api/sync");
+        System.out.println();
+        System.out.println("To use this server in Electerm:");
+        System.out.println("1. Go to Electerm sync settings");
+        System.out.println("2. Set custom sync server with:");
+        System.out.println("   - Server URL: " + serverUrl);
+        System.out.println("   - JWT_SECRET: get it from .env");
+        System.out.println("   - JWT_USER_NAME: get it from .env");
+        System.out.println("===========================================");
     }
 }
